@@ -126,7 +126,7 @@ namespace XulambsFoods
             int opcao = int.Parse(Console.ReadLine());
             return opcao switch
             {
-                1 => new Pedido(),
+                1 => new PedidoLocal(),
                 2 => CriarPedidoEntrega()
             };
 

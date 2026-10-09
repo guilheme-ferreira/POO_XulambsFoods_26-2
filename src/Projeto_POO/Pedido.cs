@@ -30,12 +30,22 @@ namespace XulambsFoods {
             _aberto = false;
         }
 
-        public virtual double PrecoAPagar() {
-            double preco = 0d;
-            foreach (Pizza pizza in _pizzas) {
-                preco += pizza.CalcularValorFinal();
+
+        protected double ValorItens()
+        {
+            double valor = 0d;
+
+            foreach (Pizza pizza in _pizzas)
+            {
+                valor += pizza.CalcularValorFinal();
             }
-            return preco;
+
+            return valor;
+        }
+
+        public virtual double PrecoAPagar()
+        {
+            return ValorItens();
         }
 
         protected string CabecalhoPedido()
