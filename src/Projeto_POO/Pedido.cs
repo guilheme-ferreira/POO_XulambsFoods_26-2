@@ -7,6 +7,8 @@ namespace XulambsFoods {
         private DateOnly _data;
         protected LinkedList<Pizza> _pizzas;
         private bool _aberto;
+        protected LinkedList<EBebida> _bebidas;
+        protected LinkedList<ESobremesa> _sobremesas;
 
         public Pedido() {
             _pizzas = new LinkedList<Pizza>();
@@ -14,6 +16,8 @@ namespace XulambsFoods {
             _data =  DateOnly.FromDateTime(DateTime.Now);
             s_ultimoPedido++;
             _idPedido = _data.Day*100 + s_ultimoPedido;
+            _bebidas = new LinkedList<EBebida>();
+            _sobremesas = new LinkedList<ESobremesa>();
         }
 
         protected virtual void PodeAdicionar() {
@@ -30,6 +34,20 @@ namespace XulambsFoods {
             return _pizzas.Count;
         }
 
+        public int Adicionar(EBebida bebida)
+        {
+            PodeAdicionar();
+            _bebidas.AddLast(bebida);
+            return _bebidas.Count;
+        }
+
+        public int Adicionar(ESobremesa sobremesa)
+        {
+            PodeAdicionar();
+            _sobremesas.AddLast(sobremesa);
+            return _sobremesas.Count;
+        }
+
         public void FecharPedido() {
             _aberto = false;
         }
@@ -40,6 +58,15 @@ namespace XulambsFoods {
             double preco = 0d;
             foreach (Pizza pizza in _pizzas) {
                 preco += pizza.CalcularValorFinal();
+            }
+            foreach (EBebida bebida in _bebidas)
+            {
+                preco += bebida.ValorBebida();
+            }
+
+            foreach (ESobremesa sobremesa in _sobremesas)
+            {
+                preco += sobremesa.ValorSobremesa();
             }
             return preco;
         }
@@ -55,6 +82,15 @@ namespace XulambsFoods {
             foreach (Pizza pizza in _pizzas)
             {
                 relat.AppendLine($"{++i:D2} {pizza.ToString()}");
+            }
+            foreach (EBebida bebida in _bebidas)
+            {
+                relat.AppendLine($"{++i:D2} Bebida: {bebida}");
+            }
+
+            foreach (ESobremesa sobremesa in _sobremesas)
+            {
+                relat.AppendLine($"{++i:D2} Sobremesa: {sobremesa}");
             }
             return relat.ToString();
         }

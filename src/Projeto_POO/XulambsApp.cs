@@ -90,7 +90,7 @@ namespace XulambsFoods
             EBorda borda = Enum.GetValues<EBorda>()[escolha - 1];
 
             pizza.AdicionarBorda(borda);
-        }
+        }   
         #endregion
 
         #region pizza
